@@ -43,6 +43,21 @@ class Engineer extends Employee {
     }
 
     getGithub(){
+
+    }
+    
+    getRole() {
+
+        }
+    
+}
+
+class Engineer extends Employee {
+    constructor(school){
+        super(school);
+    }
+
+    getSchool(){
         
     }
     
