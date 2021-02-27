@@ -52,7 +52,7 @@ class Engineer extends Employee {
     
 }
 
-class Engineer extends Employee {
+class Intern extends Employee {
     constructor(school){
         super(school);
     }
