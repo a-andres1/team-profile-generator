@@ -1,40 +1,54 @@
-const askyTime = require("inquirer"); 
+const { listenerCount } = require("events");
+const inquirer = require("inquirer");
+const { start } = require("repl");
 
-function startingPrompt(){
+startingPrompt();
+
+function startingPrompt() {
     inquirer.prompt([
-
-
-    ])
-
-}
-
-function employee(){
-    inquirer.prompt([
-
-
-    ])
-}
-
-function manager(){
-    inquirer.prompt([
-
-    ])
-
-}
-
-function intern(){
-    inquirer.prompt([
-
+        {
+            type: "list",
+            name: "choosefunction",
+            message: "Which team mates info are you entering?",
+            choices: [
+                "Manager",
+                "Engineer",
+                "Intern",
+            ]
+        }
     ])
 }
 
 
-function engineer(){
-    inquirer.prompt([
-        
-    ])
 
-}
+
+// function employee(){
+//     inquirer.prompt([
+
+
+//     ])
+// }
+
+// function manager(){
+//     inquirer.prompt([
+
+//     ])
+
+// }
+
+// function intern(){
+//     inquirer.prompt([
+
+//     ])
+// }
+
+
+// function engineer(){
+//     inquirer.prompt([
+
+//     ])
+
+// }
 
 
 
