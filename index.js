@@ -19,11 +19,27 @@ function startingPrompt() {
                 "Manager",
                 "Engineer",
                 "Intern",
+                "Exit",
             ]
         }   
-    ]).then((response) =>
-    (console.log(response)))
+    ]).then((response) =>{
+        var nextFunct = response.choosefunction
+        // nextEmployee(nextFunct);
+        console.log(nextFunct);
+    });
+    
+    
+
 }
+
+// a function to call functions
+// function nextEmployee(nextFunct){
+    // if else statements for calling the functions
+    // if (nextFunct === "Manager"){
+        
+    // }
+
+// }
 
 
 
