@@ -7,6 +7,11 @@ startingPrompt();
 function startingPrompt() {
     inquirer.prompt([
         {
+            type: 'input',
+            message: 'What is your team name?',
+            name: 'teamname',
+          },
+        {
             type: "list",
             name: "choosefunction",
             message: "Which team mates info are you entering?",
@@ -15,9 +20,11 @@ function startingPrompt() {
                 "Engineer",
                 "Intern",
             ]
-        }
-    ])
+        }   
+    ]).then((response) =>
+    (console.log(response)))
 }
+
 
 
 
