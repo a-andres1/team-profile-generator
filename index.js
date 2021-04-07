@@ -2,15 +2,55 @@ const { listenerCount } = require("events");
 const inquirer = require("inquirer");
 const { start } = require("repl");
 
-startingPrompt();
+teamName();
 
-function startingPrompt() {
+function teamName(){
     inquirer.prompt([
         {
             type: 'input',
             message: 'What is your team name?',
             name: 'teamname',
-          },
+          } 
+    ]).then((response) =>{
+    //   Have the team name write somewhere?
+    startingPrompt();
+        
+    });
+};
+
+
+function startingPrompt() {
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "choosefunction",
+            message: "What is the employee\'s role?",
+            choices: [
+                "Manager",
+                "Engineer",
+                "Intern",
+                "Exit",
+            ]
+        }   
+    ]).then((response) =>{
+        var nextFunct = response.choosefunction
+        console.log(response);
+        if (nextFunct === "Exit"){
+            exit();
+        }
+        else{
+            basicInfo(nextFunct);
+        }
+        
+    });
+    
+    
+
+};
+
+function basicInfo(nextFunct){
+    inquirer.prompt([
+       
         {
             type: 'input',
             message: 'What is the employee\'s name?',
@@ -25,27 +65,14 @@ function startingPrompt() {
             type: 'input',
             message: 'What is the employee\'s email?',
             name: 'empemail',
-          },
-        {
-            type: "list",
-            name: "choosefunction",
-            message: "What is the employee\'s role?",
-            choices: [
-                "Manager",
-                "Engineer",
-                "Intern",
-                "Exit",
-            ]
-        }   
+          }
     ]).then((response) =>{
-        var nextFunct = response.choosefunction
+        console.log(response);
         nextEmployee(nextFunct);
-        // console.log(nextFunct);
+        
     });
-    
-    
 
-};
+}
 
 // a function to call functions
 function nextEmployee(nextFunct){
@@ -71,25 +98,25 @@ function nextEmployee(nextFunct){
 function exit(){
   console.log("Bye!")
 
-  const cardTemp = `
-  <div class="container mt-3">
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <article class="tile is-child box">
-                    <p class="title">ROLE</p>
-                    <p class="subtitle">EMPLOYEE NAME</p>
-                    <p>other stuff</p>
-                    <ul>
-                        <li>ID</li>
-                        <li>EMAIL</li>
-                        <li>MANAGER NAME IF APPLICABLE</li>
-                        <li>ROLE UNIQUE INFO</li>
-                    </ul>
-                </article>
-            </div>
-        </div>
-    </div>
-  `
+//   const cardTemp = `
+//   <div class="container mt-3">
+//         <div class="tile is-ancestor">
+//             <div class="tile is-parent">
+//                 <article class="tile is-child box">
+//                     <p class="title">ROLE</p>
+//                     <p class="subtitle">EMPLOYEE NAME</p>
+//                     <p>other stuff</p>
+//                     <ul>
+//                         <li>ID</li>
+//                         <li>EMAIL</li>
+//                         <li>MANAGER NAME IF APPLICABLE</li>
+//                         <li>ROLE UNIQUE INFO</li>
+//                     </ul>
+//                 </article>
+//             </div>
+//         </div>
+//     </div>
+//   `
 
 }
 
