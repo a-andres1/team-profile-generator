@@ -62,7 +62,6 @@ function nextEmployee(nextFunct){
     if (nextFunct === "Exit"){
         exit();  
     }
-
 };
 
 
@@ -71,6 +70,27 @@ function nextEmployee(nextFunct){
 // this will be where we write the 'write to html' part with all the data?
 function exit(){
   console.log("Bye!")
+
+  const cardTemp = `
+  <div class="container mt-3">
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title">ROLE</p>
+                    <p class="subtitle">EMPLOYEE NAME</p>
+                    <p>other stuff</p>
+                    <ul>
+                        <li>ID</li>
+                        <li>EMAIL</li>
+                        <li>MANAGER NAME IF APPLICABLE</li>
+                        <li>ROLE UNIQUE INFO</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </div>
+  `
+
 }
 
 function manager(){
