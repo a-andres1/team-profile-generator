@@ -13,13 +13,14 @@ function teamName(){
           } 
     ]).then((response) =>{
     //   Have the team name write somewhere?
-    startingPrompt();
+    const tName = response.teamname 
+    startingPrompt(tName);
         
     });
 };
 
-
-function startingPrompt() {
+// function to pick what kind of employee you would like to enter or gives the option to exit
+function startingPrompt(tName) {
     inquirer.prompt([
         {
             type: "list",
@@ -36,10 +37,10 @@ function startingPrompt() {
         var nextFunct = response.choosefunction
         console.log(response);
         if (nextFunct === "Exit"){
-            exit();
+            exit(tName);
         }
         else{
-            basicInfo(nextFunct);
+            basicInfo(nextFunct, tName );
         }
         
     });
@@ -48,7 +49,8 @@ function startingPrompt() {
 
 };
 
-function basicInfo(nextFunct){
+// this info is needed for every employee and I think this makes the code less dry
+function basicInfo(nextFunct, tName){
     inquirer.prompt([
        
         {
@@ -68,34 +70,36 @@ function basicInfo(nextFunct){
           }
     ]).then((response) =>{
         console.log(response);
-        nextEmployee(nextFunct);
+        nextEmployee(nextFunct, tName);
         
     });
 
 }
 
 // a function to call functions
-function nextEmployee(nextFunct){
-    // if else statements for calling the functions
+function nextEmployee(nextFunct, tName){
+    // if statements for calling the functions
     if (nextFunct === "Manager"){
-        manager();  
+        manager(tName);  
     }
     if (nextFunct === "Engineer"){
-        engineer();  
+        engineer(tName);  
     }
     if (nextFunct === "Intern"){
-        intern();  
+        intern(tName);  
     }
     if (nextFunct === "Exit"){
-        exit();  
+        
+        exit(tName);  
     }
 };
 
 
 
 
-// this will be where we write the 'write to html' part with all the data?
-function exit(){
+// this will be where we write the 'write to html' part with all the data
+function exit(tName){
+    console.log("Exit "+ tName)
   console.log("Bye!")
 
 //   const cardTemp = `
@@ -120,7 +124,7 @@ function exit(){
 
 }
 
-function manager(){
+function manager(tName){
     inquirer.prompt([
         {
             type: 'input',
@@ -129,11 +133,11 @@ function manager(){
           }
     ]).then((response) =>{
         console.log(response)
-        startingPrompt();
+        startingPrompt(tName);
     });
 };
 
-function intern(){
+function intern(tName){
     inquirer.prompt([
         {
             type: 'input',
@@ -142,12 +146,12 @@ function intern(){
           }
     ]).then((response) =>{
         console.log(response)
-        startingPrompt();
+        startingPrompt(tName);
     });
 };
 
 
-function engineer(){
+function engineer(tName){
     inquirer.prompt([
         {
             type: 'input',
@@ -155,8 +159,8 @@ function engineer(){
             name: 'github',
           }
     ]).then((response) =>{
-        console.log(response)
-        startingPrompt();
+        console.log(response )
+        startingPrompt(tName);
     });
 };
 
