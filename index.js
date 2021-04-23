@@ -1,9 +1,12 @@
 const { listenerCount } = require("events");
 const inquirer = require("inquirer");
 const { start } = require("repl");
-
+const Engineer = require("./lib/engineer")
+const fs = require("fs");
+const renderHtml = require("./src/htmlRenderer")
 teamName();
 
+let teamArr = [];
 function teamName(){
     inquirer.prompt([
         {
@@ -68,22 +71,22 @@ function basicInfo(nextFunct, tName){
             message: 'What is the employee\'s email?',
             name: 'empemail',
           }
-    ]).then((response) =>{
-        console.log(response);
-        nextEmployee(nextFunct, tName);
+    ]).then((basicInfoRes) =>{
+        console.log(basicInfoRes);
+        nextEmployee(nextFunct, basicInfoRes, tName);
         
     });
 
 }
 
 // a function to call functions
-function nextEmployee(nextFunct, tName){
+function nextEmployee(nextFunct, basicInfoRes, tName){
     // if statements for calling the functions
     if (nextFunct === "Manager"){
         manager(tName);  
     }
     if (nextFunct === "Engineer"){
-        engineer(tName);  
+        engineer(basicInfoRes, tName);  
     }
     if (nextFunct === "Intern"){
         intern(tName);  
@@ -101,6 +104,9 @@ function nextEmployee(nextFunct, tName){
 function exit(tName){
     console.log("Exit "+ tName)
   console.log("Bye!")
+    fs.writeFile("team.html", renderHtml(teamArr), err => {
+        if (err) throw err;
+    })
 
 //   const cardTemp = `
 //   <div class="container mt-3">
@@ -151,15 +157,18 @@ function intern(tName){
 };
 
 
-function engineer(tName){
+function engineer(basicInfoRes, tName){
     inquirer.prompt([
         {
             type: 'input',
             message: 'What is the engineer\'s github username?',
             name: 'github',
           }
-    ]).then((response) =>{
-        console.log(response )
+    ]).then((engRes) =>{
+        console.log(engRes )
+        const engineer = new Engineer(basicInfoRes.empname, basicInfoRes.empid, basicInfoRes.empemail, engRes.github)
+        console.log(engineer)
+        teamArr.push(engineer);
         startingPrompt(tName);
     });
 };
