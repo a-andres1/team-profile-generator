@@ -1,9 +1,12 @@
 const { listenerCount } = require("events");
 const inquirer = require("inquirer");
 const { start } = require("repl");
-const Engineer = require("./lib/engineer")
+const Engineer = require("./lib/engineer");
+const Employee = require("./lib/employee");
+const Intern = require("./lib/intern");
+const Manager = require("./lib/manager");
 const fs = require("fs");
-const renderHtml = require("./src/htmlRenderer")
+const renderHtml = require("./src/htmlRenderer");
 teamName();
 
 let teamArr = [];
@@ -83,13 +86,13 @@ function basicInfo(nextFunct, tName){
 function nextEmployee(nextFunct, basicInfoRes, tName){
     // if statements for calling the functions
     if (nextFunct === "Manager"){
-        manager(tName);  
+        manager(basicInfoRes, tName);  
     }
     if (nextFunct === "Engineer"){
         engineer(basicInfoRes, tName);  
     }
     if (nextFunct === "Intern"){
-        intern(tName);  
+        intern(basicInfoRes, tName);  
     }
     if (nextFunct === "Exit"){
         
@@ -106,52 +109,39 @@ function exit(tName){
   console.log("Bye!")
     fs.writeFile("team.html", renderHtml(teamArr), err => {
         if (err) throw err;
-    })
+    });
 
-//   const cardTemp = `
-//   <div class="container mt-3">
-//         <div class="tile is-ancestor">
-//             <div class="tile is-parent">
-//                 <article class="tile is-child box">
-//                     <p class="title">ROLE</p>
-//                     <p class="subtitle">EMPLOYEE NAME</p>
-//                     <p>other stuff</p>
-//                     <ul>
-//                         <li>ID</li>
-//                         <li>EMAIL</li>
-//                         <li>MANAGER NAME IF APPLICABLE</li>
-//                         <li>ROLE UNIQUE INFO</li>
-//                     </ul>
-//                 </article>
-//             </div>
-//         </div>
-//     </div>
-//   `
+};
 
-}
-
-function manager(tName){
+function manager(basicInfoRes, tName){
     inquirer.prompt([
         {
             type: 'input',
             message: 'What is the manager\'s office number?',
             name: 'officenum',
           }
-    ]).then((response) =>{
-        console.log(response)
+    ]).then((manRes) =>{
+        console.log(manRes);
+        const manager = new Manager(basicInfoRes.empname, basicInfoRes.empid, basicInfoRes.empemail, manRes.officenum);
+        console.log(manager);
+        teamArr.push(manager);
         startingPrompt(tName);
     });
 };
 
-function intern(tName){
+function intern(basicInfoRes, tName){
     inquirer.prompt([
         {
             type: 'input',
             message: 'Where does the intern go to school?',
             name: 'school',
           }
-    ]).then((response) =>{
-        console.log(response)
+    ]).then((intRes) =>{
+        console.log(basicInfoRes);
+        console.log(intRes);
+        const intern = new Intern(basicInfoRes.empname, basicInfoRes.empid, basicInfoRes.empemail, intRes.school);
+        console.log(intern);
+        teamArr.push(intern);
         startingPrompt(tName);
     });
 };
@@ -165,9 +155,10 @@ function engineer(basicInfoRes, tName){
             name: 'github',
           }
     ]).then((engRes) =>{
-        console.log(engRes )
-        const engineer = new Engineer(basicInfoRes.empname, basicInfoRes.empid, basicInfoRes.empemail, engRes.github)
-        console.log(engineer)
+        console.log(tName);
+        console.log(engRes );
+        const engineer = new Engineer(basicInfoRes.empname, basicInfoRes.empid, basicInfoRes.empemail, engRes.github);
+        console.log(engineer);
         teamArr.push(engineer);
         startingPrompt(tName);
     });
