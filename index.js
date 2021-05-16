@@ -101,8 +101,6 @@ function nextEmployee(nextFunct, basicInfoRes, tName){
 };
 
 
-
-
 // this will be where we write the 'write to html' part with all the data
 function exit(tName){
     console.log("Exit "+ tName)
