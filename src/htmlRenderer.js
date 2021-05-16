@@ -18,7 +18,7 @@ const top = `
                     Meet the Team
                 </p>
                 <p class="subtitle" id="teamname">
-
+              
                 </p>
             </div>
         </section>
@@ -31,6 +31,11 @@ const bottom= `
 </body>
 
 </html>`
+
+function roles(array){
+    
+    
+};
 
 function renderHtml(array) {
     result = ``;
@@ -45,15 +50,11 @@ function renderHtml(array) {
                         <p>other stuff</p>
                         <ul>
                             <li>${element.getId()}</li>
-                            <li>${element.getEmail()}</li>
-                            <li>${element.getGithub()}${element.getSchool()}</li>
-                        </ul>
-                    </article>
-                </div>
-            </div>`
+                            <li>${element.getEmail()}</li>`
+          
     });
     
     return top+result+bottom;
 }
 
-module.exports = renderHtml
+module.exports = renderHtml;
